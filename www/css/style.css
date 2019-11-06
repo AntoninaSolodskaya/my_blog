@@ -1,0 +1,13 @@
+.container {
+    max-width: 560px;
+}
+
+.card {
+    width: 32%;
+    margin-left: 1%;
+}
+
+form {
+    max-width: 500px;
+    width: 80%;
+}
