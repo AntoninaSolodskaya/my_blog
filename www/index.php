@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Blog</title>
 </head>
+
 <body>
     <?php require "blocks/header.php" ?>
     <div class="container mt-5">
         <h3 class="mb-5 d-flex justify-content-center">Our Articles</h3>
-        <div class="d-flex flex-wrap">
-
-        <?php
-            $db = mysqli_connect("localhost", "root", "", "mystore");
-            $result = mysqli_query($db, "SELECT * FROM `posts`");
+        <div class="row">
+            <?php
+          
+            $db = mysql_connect("localhost","root","");
+            mysql_select_db("mystore",$db);
+            mysql_query("SET NAMES 'utf8'",$db);
+        
+            if (isset($_GET['page'])){
+                $page = $_GET['page'];
+            }else $page = 1;
+            
+            $kol = 8;  
+            $art = ($page * $kol) - $kol;
+       
+            $res = mysql_query("SELECT COUNT(*) FROM `posts`");
+            $row = mysql_fetch_row($res);
+            $total = $row[0]; 
            
-            while ($row = mysqli_fetch_array($result)) {
-                echo "<div class='card mb-4 shadow-sm'>";
-                echo "<div class='card-header'>","<h4 class='my-0 font-weight-normal'>" . $row['title'] . "</h4>","</div>";
-                echo "<img height='200' class='img-thumbnail' width='100%' src='images/" . $row['image'] . "' >";
-                echo "<div class='card-body'>", "<p>" . $row['content'] . "</p>", "<p>" . $row['date'] . "</p>", "<button type='button' class='btn btn-lg btn-block btn-outline-primary'>", "<a href='view_post.php?pid=$id'>" . More  . "</a>", "</button>", "</div>";
+            $str_pag = ceil($total / $kol);
+          
+            $result = mysql_query("SELECT * FROM `posts` LIMIT $art,$kol",$db);
+            $row = mysql_fetch_array($result);
+           
+            do{
+                $id = $row['id'];
+                echo "<div class='col-sm-3'>";
+                echo "<div class='card mb-4 shadow w-100' style='height: 350px'>";
+                echo "<img style='width: 100%; min-height: 200px' class='card-img-top' src='images/" . $row['image'] . "' >";
+                echo "<div class='card-body d-flex flex-column justify-content-between'>";
+                echo "<h6 class='card-title font-weight-bold'>" . $row['title'] . "</h6>";
+                echo "<div class='d-flex justify-content-between'>";
+                echo "<p class='d-flex align-items-center my-0'>" . $row['date'] = date("m.d.y")  ."</p>";
+                echo "<a class='btn btn-secondary mr-1' role='button' href='view_post.php?id=".$id." '>" . More  . "</a>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            } while ($row = mysql_fetch_array($result));
+
+            for ($i = 1; $i <= $str_pag; $i++){
+                echo "<div class='d-flex align-items-center'>";
+                echo "<a class='btn btn-secondary ml-2 mb-2' role='button' href=index.php?page=".$i.">  ".$i." </a>";
                 echo "</div>";
             }
-         ?>
+
+            ?>
         </div>
     </div>
     <?php require "blocks/footer.php" ?>
 </body>
+
 </html>

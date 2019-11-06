@@ -1,32 +1,4 @@
 <?php
-// $errors = array('title' => '', 'content' => '');
-
-// if(isset($_POST['submit'])) {
-
-//     if(empty($_POST['title'])) {
-//         $errors['title'] = "Required";  
-//     }
-
-//     if(empty($_POST['content'])) {
-//         $errors['content'] = "Required";
-//     } else {
-
-//     $title = filter_var(trim($_POST['title']), FILTER_SANITIZE_STRING);
-//     $content = filter_var(trim($_POST['content']), FILTER_SANITIZE_STRING);
-
-//     $mysql = new mysqli("localhost", "root", "", "mystore");
-//     $mysql->query("SET NAMES 'utf8'");
-
-//     $mysql->query("INSERT INTO `posts` (`title`, `content`, `date`) VALUES ('$title', '$content', '".time ()."')");
-
-//     $mysql->close();
-
-//     header('Location: /');
-//     }
-// }
-
-?>
-<?php
 $errors = array('title' => '', 'content' => '', 'image' => '');
 $db = mysqli_connect("localhost", "root", "", "mystore");
 $msg = "";
@@ -62,7 +34,7 @@ if (isset($_POST['submit'])) {
         header('Location: /');
     }
 }
-
+$db->close ();
 ?>
 
 <!DOCTYPE html>
