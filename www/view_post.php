@@ -14,12 +14,9 @@
     <?php require "blocks/header.php" ?>
     <div class="container mt-5">
 
-        <h1>post</h1>
         <?php
         $db = mysql_connect("localhost", "root", "");
         mysql_select_db("mystore", $db);
-
-
 
         if (isset($_GET['id'])) // Check id has been passed in URL
             $id = mysql_real_escape_string($_GET['id']); // Prevent injection
@@ -29,16 +26,25 @@
         $content = $result['content'];
         $date = $result['date'];
         $image = $result['image'];
-        
+
         ?>
-        <div class="container mt-5">
-        <h1>Name: <?php echo $title; ?></h1>
-        <p>Content: <?php echo $content; ?></p>
-        <span>Date: <?php echo $date; ?></span>
-        <img style='width: 100%; min-height: 200px' class='card-img-top' src='images/<?php echo $image?>' >
-        <a class='btn btn-secondary ml-2 mb-2' role='button' href="index.php">Go Back</a>
+        <h1 class="d-flex justify-content-center">Post № : <?php echo $id ?></h1>
+        <div class="row">
+            <div class="col-sm-6">
+                <img style='width: 100%; min-height: 400px' class='img-thumbnail' src='images/<?php echo $image ?>'>
+            </div>
+            <div class="col-sm-6 d-flex align-items-start flex-column mb-3">
+                <h3 class="mb-4"><?php echo $title; ?></h3>
+                <p><?php echo $content; ?></p>
+                <div class="d-flex align-items-center justify-content-between w-100 mt-auto p-2">
+                    <p class="font-weight-bold my-0">Date: <?php echo $date = date("m.d.y"); ?></p>
+                    <a class='btn btn-secondary ml-2 mb-2' role='button' href="index.php">Go Back</a>
+                </div>
+            </div>
         </div>
-        <?php require "blocks/footer.php" ?>
+
+    </div>
+    <?php require "blocks/footer.php" ?>
 </body>
 
 </html>

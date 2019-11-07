@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Blog</title>
 </head>
@@ -13,7 +13,7 @@
 <body>
     <?php require "blocks/header.php" ?>
     <div class="container mt-5">
-        <h3 class="mb-5 d-flex justify-content-center">Our Articles</h3>
+        <h3 class="mb-4 d-flex justify-content-center">Our Articles</h3>
         <div class="row">
             <?php
           
@@ -39,6 +39,10 @@
            
             do{
                 $id = $row['id'];
+                $title = $row['title'];
+                $date = $row['date'];
+                $image = $row['image'];
+                
                 echo "<div class='col-sm-3'>";
                 echo "<div class='card mb-4 shadow w-100' style='height: 350px'>";
                 echo "<img style='width: 100%; min-height: 200px' class='card-img-top' src='images/" . $row['image'] . "' >";
